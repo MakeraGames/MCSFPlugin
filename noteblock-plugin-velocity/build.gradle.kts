@@ -10,3 +10,8 @@ dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
     annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 }
+
+tasks.compileJava {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}
