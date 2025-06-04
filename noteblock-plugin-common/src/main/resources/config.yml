@@ -1,3 +1,11 @@
 settings:
-  api-key: 'your-api-key-here'
-  server-id: 0
+  apiKey: 'your-api-key-here'
+  serverId: 0
+leaderboardSettings:
+  enabled: false
+  updateInterval: 2 # In minutes
+  leaderboards:
+    - id: 'player-kills'
+      placeholder: '%player_kills%'
+    - id: 'player-deaths'
+      placeholder: '%player_deaths%'

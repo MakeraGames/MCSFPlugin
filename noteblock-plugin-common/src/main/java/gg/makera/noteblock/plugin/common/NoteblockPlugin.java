@@ -26,11 +26,8 @@ package gg.makera.noteblock.plugin.common;
 
 import gg.makera.noteblock.api.NoteblockAPI;
 import gg.makera.noteblock.api.NoteblockAPIFactory;
-import gg.makera.noteblock.api.response.Server;
-import gg.makera.noteblock.api.response.ServerInfoResponse;
-import gg.makera.noteblock.api.response.User;
-import gg.makera.noteblock.api.response.UserInfoResponse;
-import gg.makera.noteblock.plugin.common.NoteblockConfiguration.Settings;
+import gg.makera.noteblock.api.response.*;
+import gg.makera.noteblock.plugin.common.NoteblockConfiguration.*;
 import gg.makera.noteblock.plugin.common.configuration.ConfigurationAdapters;
 import gg.makera.noteblock.plugin.common.configuration.ConfigurationKey;
 import gg.makera.noteblock.plugin.common.configuration.yaml.YamlConfigurationAdapter;
@@ -40,11 +37,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public abstract class NoteblockPlugin {
 
     private final Logger logger;
+    private final Map<String, LeaderboardInfoResponse.Leaderboard> leaderboardMap = new HashMap<>();
     private YamlConfigurationHandler configHandler;
     private final File pluginDir;
     private NoteblockAPI api;
@@ -97,7 +98,30 @@ public abstract class NoteblockPlugin {
         this.server = serverInfoResponse.getServer();
         logger.info("Successfully connected to NoteBlock server: " + server.getSlug());
 
+        // Load leaderboards
+        ConfigurationKey<LeaderboardSettings> leaderboardSettingsConfigurationKey = ConfigurationKey.of(
+                "leaderboardSettings",
+                LeaderboardSettings.class,
+                new LeaderboardSettings()
+        );
+        LeaderboardSettings leaderboardSettings = this.configHandler.get(leaderboardSettingsConfigurationKey);
+        for (LeaderboardSettings.Leaderboard leaderboard : leaderboardSettings.getLeaderboards()) {
+            LeaderboardInfoResponse leaderboardInfoResponse = api.getLeaderboardInfo(server.getId(), leaderboard.getId()).join();
+            LeaderboardInfoResponse.Leaderboard responseLeaderboard = leaderboardInfoResponse.getLeaderboard();
+            logger.info("Successfully retrieved '" + responseLeaderboard.getLegend() + "' limited to " +
+                    responseLeaderboard.getPlayersLimit() + " entries");
+            leaderboardMap.put(responseLeaderboard.getName(), responseLeaderboard);
+        }
+
         onStart();
+    }
+
+    public final Collection<LeaderboardInfoResponse.Leaderboard> getLeaderboards() {
+        return leaderboardMap.values();
+    }
+
+    public final LeaderboardInfoResponse.Leaderboard getLeaderboard(@NotNull String name) {
+        return leaderboardMap.get(name);
     }
 
     public final void shutdown() {
