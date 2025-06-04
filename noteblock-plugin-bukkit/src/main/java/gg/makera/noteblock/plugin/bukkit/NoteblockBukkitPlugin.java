@@ -55,6 +55,12 @@ public class NoteblockBukkitPlugin extends NoteblockPlugin {
                 new NoteblockConfiguration.LeaderboardSettings()
         );
         NoteblockConfiguration.LeaderboardSettings leaderboardSettings = getConfigHandler().get(leaderboardSettingsConfigurationKey);
+        if (leaderboardSettings.isEnabled()) {
+            initializeLeaderboards(leaderboardSettings);
+        }
+    }
+
+    private void initializeLeaderboards(NoteblockConfiguration.LeaderboardSettings leaderboardSettings) {
         for (NoteblockConfiguration.LeaderboardSettings.Leaderboard settingLeaderboard : leaderboardSettings.getLeaderboards()) {
             LeaderboardInfoResponse.Leaderboard leaderboard = getLeaderboard(settingLeaderboard.getId());
             if (leaderboard == null) {
