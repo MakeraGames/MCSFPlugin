@@ -22,38 +22,22 @@
  * SOFTWARE.
  */
 
-package gg.makera.noteblock.plugin.bukkit;
+package gg.makera.noteblock.plugin.bukkit.leaderboard;
 
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.annotation.plugin.Plugin;
+import gg.makera.noteblock.plugin.bukkit.NoteblockBukkitPlugin;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.scheduler.BukkitRunnable;
 
-@Plugin(
-        name = "NoteBlockPlugin",
-        version = "1.0-SNAPSHOT"
-)
-public class NoteblockBukkitBootstrap extends JavaPlugin {
+@RequiredArgsConstructor
+public class BukkitLeaderboardUpdateScheduler extends BukkitRunnable {
 
-    private NoteblockBukkitPlugin plugin;
+    private final NoteblockBukkitPlugin plugin;
 
     @Override
-    public void onLoad() {
-        if (!getDataFolder().exists()) getDataFolder().mkdirs();
-        this.plugin = new NoteblockBukkitPlugin(this);
-    }
-
-    @Override
-    public void onEnable() {
-        this.plugin.initialize();
-    }
-
-    @Override
-    public void onDisable() {
-        this.plugin.shutdown();
-    }
-
-    protected void registerListeners(Listener... listeners) {
-        for (Listener listener : listeners) getServer().getPluginManager().registerEvents(listener, this);
+    public void run() {
+        for (BukkitLeaderboard leaderboard : plugin.getLeaderboards()) {
+            leaderboard.performLeaderboardUpdate();
+        }
     }
 
 }

@@ -22,38 +22,35 @@
  * SOFTWARE.
  */
 
-package gg.makera.noteblock.plugin.bukkit;
+package gg.makera.noteblock.plugin.bukkit.leaderboard;
 
+import gg.makera.noteblock.plugin.bukkit.NoteblockBukkitPlugin;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.annotation.plugin.Plugin;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-@Plugin(
-        name = "NoteBlockPlugin",
-        version = "1.0-SNAPSHOT"
-)
-public class NoteblockBukkitBootstrap extends JavaPlugin {
+@RequiredArgsConstructor
+public class BukkitLeaderboardListener implements Listener {
 
-    private NoteblockBukkitPlugin plugin;
+    private final NoteblockBukkitPlugin plugin;
 
-    @Override
-    public void onLoad() {
-        if (!getDataFolder().exists()) getDataFolder().mkdirs();
-        this.plugin = new NoteblockBukkitPlugin(this);
+    @EventHandler
+    public void onJoin(final PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        for (BukkitLeaderboard leaderboard : plugin.getLeaderboards()) {
+            leaderboard.cacheOnline(player);
+        }
     }
 
-    @Override
-    public void onEnable() {
-        this.plugin.initialize();
-    }
-
-    @Override
-    public void onDisable() {
-        this.plugin.shutdown();
-    }
-
-    protected void registerListeners(Listener... listeners) {
-        for (Listener listener : listeners) getServer().getPluginManager().registerEvents(listener, this);
+    @EventHandler
+    public void onQuit(final PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        for (BukkitLeaderboard leaderboard : plugin.getLeaderboards()) {
+            leaderboard.cacheOffline(player);
+        }
     }
 
 }

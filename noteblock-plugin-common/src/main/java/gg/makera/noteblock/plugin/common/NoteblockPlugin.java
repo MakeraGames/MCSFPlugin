@@ -33,6 +33,7 @@ import gg.makera.noteblock.plugin.common.configuration.ConfigurationKey;
 import gg.makera.noteblock.plugin.common.configuration.yaml.YamlConfigurationAdapter;
 import gg.makera.noteblock.plugin.common.configuration.yaml.YamlConfigurationHandler;
 import gg.makera.noteblock.plugin.common.utils.JarUtils;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Getter
 public abstract class NoteblockPlugin {
 
     private final Logger logger;
