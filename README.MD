@@ -49,6 +49,21 @@ This plugin supports various platforms, current supported ones are:
     ```
 7. Done! the plugin is ready-to-go.
 
+## Leaderboards
+Configuring leaderboards is easy and simple, it can be done with fewer steps:
+1. Configure your leaderboards from your **Edit Server** page.
+2. In plugin configuration, you can configure the leaderboard:
+   ```yaml
+   leaderboardSettings:
+       enabled: true # You can toggle leaderboards functionality
+       updateInterval: 2 # What should be the period between each push in minutes
+       leaderboards:
+       - id: 'player_kills' # Leaderboard name in NoteBlock Server panel
+         placeholder: '%player_kills%' # PlaceholderAPI placeholder which will be used to retrieve stats for leaderboard
+    ```
+
+Just like that, you have successfully configured leaderboards 🎉!
+
 ## Contributions
 We welcome community contributions through pull requests!
 
