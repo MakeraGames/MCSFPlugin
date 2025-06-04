@@ -37,6 +37,7 @@ public class NoteblockBukkitBootstrap extends JavaPlugin {
 
     @Override
     public void onLoad() {
+        if (!getDataFolder().exists()) getDataFolder().mkdirs();
         this.plugin = new NoteblockBukkitPlugin(this);
     }
 

@@ -29,4 +29,19 @@ subprojects {
         annotationProcessor("org.projectlombok:lombok:1.18.38")
     }
 
+    tasks.compileJava {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+    }
+
+    tasks.shadowJar {
+        archiveBaseName.set(project.name)
+        archiveClassifier.set("")
+
+        val libsPackage = "gg.makera.noteblock.plugin.libs"
+        relocate("com.google.gson", "${libsPackage}.gson")
+        relocate("org.yaml.snakeyaml", "${libsPackage}.snakeyaml")
+    }
+
 }

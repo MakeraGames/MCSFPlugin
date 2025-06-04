@@ -32,6 +32,7 @@ public class NoteblockBungeecordBootstrap extends Plugin {
 
     @Override
     public void onLoad() {
+        if (!getDataFolder().exists()) getDataFolder().mkdirs();
         plugin = new NoteblockBungeecordPlugin(this);
     }
 
