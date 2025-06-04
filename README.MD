@@ -35,17 +35,19 @@ This plugin supports various platforms, current supported ones are:
 
 ## Installation
 1. Get your Noteblock API key from the [Settings](https://noteblock.gg/settings/api-keys) page.
-2. Download the plugin you want to include in your platform from the
+2. Get your Server ID from **Edit Server** page.
+3. Download the plugin you want to include in your platform from the
     [Releases](https://github.com/MakeraGames/NoteBlockPlugin/releases) page.
-3. Drop the plugin in your `plugins/` directory.
-4. Start your server to generate the configuration file.
-5. Turn off your server and go to your plugin `config.yml` (located in `plugins/noteblock-plugin/` for velocity,
+4. Drop the plugin in your `plugins/` directory.
+5. Start your server to generate the configuration file.
+6. Turn off your server and go to your plugin `config.yml` (located in `plugins/noteblock-plugin/` for velocity,
     and `plugins/NoteBlockPlugin/` for other platforms) put the API key there:
     ```yaml
    settings:
-       api-key: "put-your-api-key-here"
+       apiKey: "put-your-api-key-here"
+       serverId: 0 # Your Server ID here
     ```
-6. Done! the plugin is ready-to-go.
+7. Done! the plugin is ready-to-go.
 
 ## Contributions
 We welcome community contributions through pull requests!
