@@ -35,8 +35,8 @@ public class NoteblockConfiguration {
 
     @Data
     public static class Settings {
-        private final String apiKey = "your-api-key-here";
-        private final int serverId = 0;
+        private String apiKey = "your-api-key-here";
+        private int serverId = 0;
     }
 
 }

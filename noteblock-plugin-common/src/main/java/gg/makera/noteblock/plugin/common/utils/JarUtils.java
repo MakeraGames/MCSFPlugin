@@ -36,8 +36,8 @@ import java.nio.file.StandardCopyOption;
 public class JarUtils {
 
     public static void extract(String from, File to) {
-        if (!to.exists()) return;
         try (InputStream inputStream = JarUtils.class.getResourceAsStream("/" + from)) {
+            if (!to.exists()) to.createNewFile();
             if (inputStream == null) {
                 throw new NullPointerException("Cannot find resource " + from);
             }
