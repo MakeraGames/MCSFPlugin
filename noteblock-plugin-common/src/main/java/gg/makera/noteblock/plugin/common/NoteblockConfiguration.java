@@ -24,7 +24,7 @@
 
 package gg.makera.noteblock.plugin.common;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 
@@ -35,19 +35,19 @@ import java.util.List;
  */
 public class NoteblockConfiguration {
 
-    @Getter
+    @Data
     public static class Settings {
         private String apiKey = "your-api-key-here";
         private int serverId = 0;
     }
 
-    @Getter
+    @Data
     public static class LeaderboardSettings {
         private boolean enabled;
         private int updateInterval;
         private List<Leaderboard> leaderboards;
 
-        @Getter
+        @Data
         public static class Leaderboard {
             private String id;
             private String placeholder;
