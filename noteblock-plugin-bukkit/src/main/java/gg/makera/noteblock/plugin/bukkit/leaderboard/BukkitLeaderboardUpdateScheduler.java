@@ -35,7 +35,7 @@ public class BukkitLeaderboardUpdateScheduler extends BukkitRunnable {
 
     @Override
     public void run() {
-        for (BukkitLeaderboard leaderboard : plugin.getLeaderboards()) {
+        for (BukkitLeaderboard leaderboard : plugin.getBukkitLeaderboards()) {
             leaderboard.performLeaderboardUpdate();
         }
     }

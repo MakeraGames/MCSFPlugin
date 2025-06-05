@@ -40,7 +40,7 @@ public class NoteblockBukkitPlugin extends NoteblockPlugin {
 
     private final NoteblockBukkitBootstrap bootstrap;
     @Getter
-    private final Set<BukkitLeaderboard> leaderboards = new HashSet<>();
+    private final Set<BukkitLeaderboard> bukkitLeaderboards = new HashSet<>();
 
     public NoteblockBukkitPlugin(@NotNull NoteblockBukkitBootstrap bootstrap) {
         super(bootstrap.getDataFolder(), bootstrap.getLogger());
@@ -68,7 +68,7 @@ public class NoteblockBukkitPlugin extends NoteblockPlugin {
                 continue;
             }
             BukkitLeaderboard bukkitLeaderboard = new BukkitLeaderboard(this, leaderboard, settingLeaderboard.getPlaceholder());
-            leaderboards.add(bukkitLeaderboard);
+            bukkitLeaderboards.add(bukkitLeaderboard);
         }
         int interval = leaderboardSettings.getUpdateInterval();
 

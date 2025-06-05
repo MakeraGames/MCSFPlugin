@@ -40,7 +40,7 @@ public class BukkitLeaderboardListener implements Listener {
     @EventHandler
     public void onJoin(final PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        for (BukkitLeaderboard leaderboard : plugin.getLeaderboards()) {
+        for (BukkitLeaderboard leaderboard : plugin.getBukkitLeaderboards()) {
             leaderboard.cacheOnline(player);
         }
     }
@@ -48,7 +48,7 @@ public class BukkitLeaderboardListener implements Listener {
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        for (BukkitLeaderboard leaderboard : plugin.getLeaderboards()) {
+        for (BukkitLeaderboard leaderboard : plugin.getBukkitLeaderboards()) {
             leaderboard.cacheOffline(player);
         }
     }
