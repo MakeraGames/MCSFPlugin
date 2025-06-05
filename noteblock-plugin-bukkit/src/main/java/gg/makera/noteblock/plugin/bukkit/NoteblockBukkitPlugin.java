@@ -26,6 +26,7 @@ package gg.makera.noteblock.plugin.bukkit;
 
 import gg.makera.noteblock.api.response.LeaderboardInfoResponse;
 import gg.makera.noteblock.plugin.bukkit.leaderboard.BukkitLeaderboard;
+import gg.makera.noteblock.plugin.bukkit.leaderboard.BukkitLeaderboardListener;
 import gg.makera.noteblock.plugin.bukkit.leaderboard.BukkitLeaderboardUpdateScheduler;
 import gg.makera.noteblock.plugin.common.NoteblockConfiguration;
 import gg.makera.noteblock.plugin.common.NoteblockPlugin;
@@ -71,6 +72,8 @@ public class NoteblockBukkitPlugin extends NoteblockPlugin {
             bukkitLeaderboards.add(bukkitLeaderboard);
         }
         int interval = leaderboardSettings.getUpdateInterval();
+
+        bootstrap.registerListeners(new BukkitLeaderboardListener(this));
 
         new BukkitLeaderboardUpdateScheduler(this).runTaskTimerAsynchronously(
                 bootstrap,
