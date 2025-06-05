@@ -29,7 +29,6 @@ import gg.makera.noteblock.api.response.LeaderboardInfoResponse;
 import gg.makera.noteblock.plugin.bukkit.NoteblockBukkitPlugin;
 import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -79,7 +78,7 @@ public class BukkitLeaderboard {
     }
 
     public void cacheOffline(Player player) {
-        cachedPlayers.add(player);
+        cachedPlayers.remove(player);
         String parsed = PlaceholderAPI.setPlaceholders(player, placeholder);
         if (!isNumeric(parsed)) {
             return;
@@ -91,15 +90,18 @@ public class BukkitLeaderboard {
     public void performLeaderboardUpdate() {
         NoteblockAPI api = plugin.getApi();
         CompletableFuture.allOf(getTopEntries().stream()
-                .map(entry ->
-                        api.updateLeaderboard(plugin.getServer().getId(), leaderboard.getName(), entry.getName(), entry.getValue())
-                                .exceptionally(throwable -> {
-                                    throwable.printStackTrace(System.err);
-                                    return null;
-                                })).toArray(CompletableFuture[]::new)).thenRun(() -> {
-            cachedPlayers.clear();
-            offlineCache.clear();
-        });
+                .map(entry -> api.updateLeaderboard(
+                        plugin.getServer().getId(),
+                        leaderboard.getName(),
+                        entry.getName(),
+                        entry.getValue()
+                ).exceptionally(throwable -> {
+                    throwable.printStackTrace(System.err);
+                    return null;
+                })).toArray(CompletableFuture[]::new)).thenRun(() -> {
+                    cachedPlayers.clear();
+                    offlineCache.clear();
+                });
     }
 
     private boolean isNumeric(String str) {
