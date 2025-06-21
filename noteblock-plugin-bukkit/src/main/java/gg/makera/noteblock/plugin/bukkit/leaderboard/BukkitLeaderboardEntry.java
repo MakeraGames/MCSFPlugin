@@ -26,9 +26,12 @@ package gg.makera.noteblock.plugin.bukkit.leaderboard;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class BukkitLeaderboardEntry {
 
+    private final UUID uuid;
     private final String name;
     private final double value;
 

@@ -55,10 +55,10 @@ public class BukkitLeaderboard {
                     continue;
                 }
                 double value = Double.parseDouble(parsed);
-                BukkitLeaderboardEntry entry = new BukkitLeaderboardEntry(player.getName(), value);
+                BukkitLeaderboardEntry entry = new BukkitLeaderboardEntry(player.getUniqueId(), player.getName(), value);
                 entries.add(entry);
             } else {
-                BukkitLeaderboardEntry entry = new BukkitLeaderboardEntry(player.getName(), offlineCache.get(player.getName()));
+                BukkitLeaderboardEntry entry = new BukkitLeaderboardEntry(player.getUniqueId(), player.getName(), offlineCache.get(player.getName()));
                 entries.add(entry);
             }
         }
@@ -93,6 +93,7 @@ public class BukkitLeaderboard {
                 .map(entry -> api.updateLeaderboard(
                         plugin.getServer().getId(),
                         leaderboard.getName(),
+                        entry.getUuid(),
                         entry.getName(),
                         entry.getValue()
                 ).exceptionally(throwable -> {
