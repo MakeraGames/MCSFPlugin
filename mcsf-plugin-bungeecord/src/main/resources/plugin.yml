@@ -1,0 +1,4 @@
+name: MCSFPlugin
+main: gg.makera.mcsf.plugin.bungeecord.MCSFBungeecordBootstrap
+version: 1.0
+author: username

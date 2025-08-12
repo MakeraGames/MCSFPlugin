@@ -1,5 +1,5 @@
-rootProject.name = "NoteblockPlugin"
+rootProject.name = "MCSFPlugin"
 
 for (module in arrayOf("bukkit", "bungeecord", "common", "velocity")) {
-    include("noteblock-plugin-$module")
+    include("mcsf-plugin-$module")
 }

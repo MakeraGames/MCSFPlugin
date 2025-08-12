@@ -1,4 +1,0 @@
-name: NoteBlockPlugin
-main: gg.makera.noteblock.plugin.bungeecord.NoteblockBungeecordBootstrap
-version: 1.0
-author: username

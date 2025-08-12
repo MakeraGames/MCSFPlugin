@@ -23,7 +23,7 @@ subprojects {
     }
 
     dependencies {
-        implementation("gg.makera:noteblock-api:0.1.0-SNAPSHOT")
+        implementation("gg.makera:mcsf-api:0.1.0-SNAPSHOT")
         implementation("org.yaml:snakeyaml:2.4")
         compileOnly("org.projectlombok:lombok:1.18.38")
         annotationProcessor("org.projectlombok:lombok:1.18.38")
@@ -39,7 +39,7 @@ subprojects {
         archiveBaseName.set(project.name)
         archiveClassifier.set("")
 
-        val libsPackage = "gg.makera.noteblock.plugin.libs"
+        val libsPackage = "gg.makera.mcsf.plugin.libs"
         relocate("com.google.gson", "${libsPackage}.gson")
         relocate("org.yaml.snakeyaml", "${libsPackage}.snakeyaml")
     }
